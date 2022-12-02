@@ -12,7 +12,6 @@
       "subscribers": 139000,
       "rating": 4.2
     },
-
     {
       "id": 2,
       "name": "Падон",
@@ -24,7 +23,6 @@
       "subscribers": 77400,
       "rating": 4.8
     },
-
     {
       "id": 3,
       "name": "Nikkatica",
@@ -37,7 +35,6 @@
       "subscribers": 35400,
       "rating": 3.9
     },
-
     {
       "id": 4,
       "name": "GameStreetUA",
@@ -48,9 +45,8 @@
         "Огляди ігор"
       ],
       "subscribers": 6970,
-      "rating": 4.0
+      "rating": 4
     },
-    
     {
       "id": 5,
       "name": "імені Т.Г. Шевченка",
@@ -61,7 +57,6 @@
       "subscribers": 769000,
       "rating": 3.9
     },
-    
     {
       "id": 6,
       "name": "Історія Без Міфів",
@@ -70,9 +65,8 @@
         "Історія"
       ],
       "subscribers": 536000,
-      "rating": 5.0
+      "rating": 5
     },
-
     {
       "id": 7,
       "name": "Історія для дорослих",
@@ -83,7 +77,6 @@
       "subscribers": 184000,
       "rating": 3.8
     },
-
     {
       "id": 8,
       "name": "Книга-мандрівка. Україна",
@@ -95,7 +88,6 @@
       "subscribers": 61200,
       "rating": 0
     },
-
     {
       "id": 9,
       "name": "Шаблюк",
@@ -106,7 +98,6 @@
       "subscribers": 16900,
       "rating": 3.5
     },
-
     {
       "id": 10,
       "name": "Дарка Бунтарка",
@@ -118,7 +109,6 @@
       "subscribers": 20700,
       "rating": 4.6
     },
-
     {
       "id": 11,
       "name": "Клятий раціоналіст",
@@ -129,7 +119,6 @@
       "subscribers": 257000,
       "rating": 4.6
     },
-
     {
       "id": 12,
       "name": "Цікава наука",
@@ -138,9 +127,8 @@
         "Наука"
       ],
       "subscribers": 221000,
-      "rating": 5.0
+      "rating": 5
     },
-
     {
       "id": 13,
       "name": "Alpha Centauri",
@@ -150,9 +138,8 @@
         "Озвучення"
       ],
       "subscribers": 5560,
-      "rating": 4.0
+      "rating": 4
     },
-
     {
       "id": 14,
       "name": "Військове телебачення України",
@@ -163,20 +150,18 @@
       "subscribers": 787000,
       "rating": 4.3
     },
-
     {
       "id": 15,
       "name": "Old School Combat",
       "URL": "https://www.youtube.com/channel/UC1hRanDX_VJ26WNofw8NQtw",
       "categories": [
         "Військова справа",
-        "Спорт" ,
+        "Спорт",
         "Суспільство"
       ],
       "subscribers": 566000,
       "rating": 3.5
     },
-
     {
       "id": 16,
       "name": "Operator Starsky",
@@ -187,7 +172,6 @@
       "subscribers": 348000,
       "rating": 0
     },
-
     {
       "id": 17,
       "name": "ХЛОПЦІ З ЛІСУ",
@@ -198,7 +182,6 @@
       "subscribers": 200000,
       "rating": 4.3
     },
-
     {
       "id": 18,
       "name": "Militarnyi",
@@ -209,7 +192,6 @@
       "subscribers": 121000,
       "rating": 4.6
     },
-
     {
       "id": 19,
       "name": "Ragulivna",
@@ -222,7 +204,6 @@
       "subscribers": 201000,
       "rating": 4.6
     },
-
     {
       "id": 20,
       "name": "Alex_D20",
@@ -234,7 +215,6 @@
       "subscribers": 154000,
       "rating": 4.2
     },
-
     {
       "id": 21,
       "name": "UkrTrashDub 2.0",
@@ -246,7 +226,6 @@
       "subscribers": 158000,
       "rating": 0
     },
-
     {
       "id": 22,
       "name": "AdrianZP",
@@ -257,7 +236,6 @@
       "subscribers": 67900,
       "rating": 4.9
     },
-
     {
       "id": 23,
       "name": "MariAm Blog",
@@ -272,7 +250,6 @@
       "subscribers": 14900,
       "rating": 4.8
     },
-
     {
       "id": 24,
       "name": "PlayUA - дубльовані відео",
@@ -283,7 +260,6 @@
       "subscribers": 4740,
       "rating": 0
     },
-
     {
       "id": 25,
       "name": "strugachka Т. С. Струґачка",

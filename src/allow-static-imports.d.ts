@@ -1,2 +1,2 @@
 declare module '*.svg';
-declare module 'react-infinite-loader';
+declare module '*.module.css';

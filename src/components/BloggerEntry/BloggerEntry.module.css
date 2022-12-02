@@ -1,0 +1,20 @@
+/* .tableRow {
+} */
+
+.tableCell {
+  padding: 5px 10px;
+  border: 1px solid black;
+  height: 35px;
+}
+
+.tableCellNumber {
+  min-width: 20px;
+}
+
+.tableCellText {
+  min-width: 40%;
+}
+
+.tableCellStats {
+  min-width: 100px;
+}

@@ -1,0 +1,17 @@
+.bloggers {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
+.caption {
+  text-align: left;
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+.footer {
+  height: 200px;
+  background-color: gray;
+}

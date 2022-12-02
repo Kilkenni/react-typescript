@@ -1,14 +1,15 @@
-import BloggerEntry from "../BloggerEntry";
-// import json from "../../db.json";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 
-import type { BloggerEntryProps } from "../BloggerEntry/BloggerEntry";
+import BloggerEntry from "../BloggerEntry";
+import type { BloggerInfo } from "../BloggerEntry/BloggerEntry";
+import AddBloggerForm from "../AddBloggerForm/AddBloggerForm";
+import { fetchBloggers } from "../../js/API";
+import styles from "./BloggersTable.module.css";
 
 function useLoadItems() {
   const [loading, setLoading] = useState(false);
-  const [items, setItems] = useState<( {id: number } & BloggerEntryProps )[]>([]);
+  const [items, setItems] = useState<( {id: number } & BloggerInfo )[]>([]);
   const [currentPage, setCurrentPage] = useState<number|undefined>(undefined);
   const [totalItems, setTotalItems] = useState<number|undefined>(undefined);
   const [error, setError] = useState<Error>();
@@ -16,7 +17,7 @@ function useLoadItems() {
   useEffect(() => {
     //fetch once on component mount to get total number of entries
     async function doOnce() {
-      const {status, headers } = await axios.get(`http://localhost:3000/bloggers?_page=1&_limit=1`);
+      const {status, headers } = await fetchBloggers(1, 1);
       if (status === 200) {
         setTotalItems(parseInt(headers["x-total-count"] || "0")); //JSON-server returns total num of entries as a header
         setCurrentPage(0);
@@ -33,13 +34,12 @@ function useLoadItems() {
 
     setLoading(true);
     try {
-      const { data: newData, status, headers } = await axios.get(`http://localhost:3000/bloggers?_page=${currentPage+1}&_limit=5`);
+      const { data: newData, status, headers } = await fetchBloggers(currentPage+1);
       if (status === 200) {
         setItems((current) => [...current, ...newData]);
         setTotalItems(parseInt(headers["x-total-count"] || "0")); //JSON-server returns total num of entries as a header
         setCurrentPage(currentPage + 1);
       }
-      
     } catch (err) {
       setError(err instanceof Error ? err : undefined);
     } finally {
@@ -47,36 +47,11 @@ function useLoadItems() {
     }
   }
 
-  return { loading, items, currentPage, totalItems, error, loadMore };
+  return { loading, items, currentPage, totalItems, setTotalItems, error, loadMore };
 }
 
 function BloggersTable() {
-  // const [bloggers, setBloggers] = useState<( {id: number } & BloggerEntryProps )[]>([]);
-  // const [page, setPage] = useState<number>(0);
-  // const [totalBloggers, setTotalBloggers] = useState<number>(0);
-
-  // useEffect(() => {
-  //   //pull initial list from backend once
-  //   async function getBloggers() {
-  //     const response = await axios.get(`http://localhost:3000/bloggers?_page=0&_limit=5`);
-  //     if (response.status === 200) {
-  //       console.log(response.data);
-  //       setBloggers(response.data);
-  //       setTotalBloggers(parseInt(response.headers["x-total-count"] || "0"));
-  //     }
-  //   }
-
-  //   getBloggers();
-  // }, []);
-
-  //switch page only when there is a next page - we assume here that limit is 5 per page (can be parametrized later)
-  // function nextPage() {
-  //   if (page * 5 < totalBloggers) {
-  //     setPage(page + 1);
-  //   }
-  // }
-
-  const { loading, items: bloggers, currentPage, totalItems, error, loadMore } = useLoadItems();
+  const { loading, items: bloggers, currentPage, totalItems, setTotalItems, error, loadMore } = useLoadItems();
 
   function hasNextPage() {
     if (currentPage === undefined || totalItems === undefined) {
@@ -92,24 +67,35 @@ function BloggersTable() {
     // When there is an error, we stop infinite loading.
     // It can be reactivated by setting "error" state as undefined.
     disabled: !!error,
+    delayInMs: 500, //artifically slow down fetch to show its work
     // `rootMargin` is passed to `IntersectionObserver`.
     // We can use it to trigger 'onLoadMore' when the sentry comes near to become
     // visible, instead of becoming fully visible on the screen.
-    delayInMs: 2000,
-    rootMargin: '0px 0px 200px 0px',
+    rootMargin: '0px 0px 0px 0px',
   });
 
-  // async function loadMoreBloggers() {
-  //   nextPage();
-  //   const response = await axios.get(`http://localhost:3000/bloggers?_page=${page-1}&_limit=5`);
-  //   if (response.status === 200) {
-  //     console.log(response.data);
-  //     setBloggers([...bloggers, ...response.data]);
-  //   }
-  // }
+  function onBloggerInserted() {
+    if (!totalItems) {
+      setTotalItems(1);
+    }
+    else {
+      setTotalItems(totalItems + 1);
+    }
+  }
 
   return (<>
-      <table>
+      <AddBloggerForm onSubmitted={onBloggerInserted}/>
+      <table className={styles.bloggers}>
+        <caption className={styles.caption}>Youtube bloggers</caption>
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Youtube channel</th>
+          <th>Categories</th>
+          <th>Subs</th>
+          <th>Rating</th>
+        </tr>
+        </thead>
         <tbody>
           {bloggers && bloggers.map(({id, name, URL, categories, subscribers, rating}) => {
             return (<BloggerEntry key={id} id={id} name={name} URL={URL} categories={categories} subscribers={subscribers} rating={rating} ></BloggerEntry>);
@@ -119,7 +105,7 @@ function BloggersTable() {
       <div ref={sentryRef} />
       {(loading || hasNextPage()) && (
         <div>
-          Loading
+          Loader placeholder
         </div>
       )}
     </>);

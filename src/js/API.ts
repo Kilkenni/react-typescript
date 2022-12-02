@@ -1,22 +1,23 @@
 import axios from "axios";
+import { BloggerInfo } from "../components/BloggerEntry/BloggerEntry";
 
-const baseURL = "http://localhost:3000/";
+const baseURL = "http://localhost:3000";
 
-export function fetchContacts() {
-  return axios.get(baseURL + "/bloggers");
+export function fetchBloggers(page: number, perPage = 5) {
+  return axios.get(`${baseURL}/bloggers?_page=${page}&_limit=${perPage}`);
 }
 
-/*
-export function postContact(newContact, token) {
+
+export function postBlogger(newBlogger: BloggerInfo) {
   
   const config = {
     headers: {
-      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
   };
-  return axios.post(baseURL + "/contacts", newContact, config);
+  return axios.post(`${baseURL}/bloggers`, newBlogger, config);
 }
-
+/*
 export function delContact(id, token) {
   const deleteURL = baseURL + "/contacts/" + id.toString();
   const config = {
