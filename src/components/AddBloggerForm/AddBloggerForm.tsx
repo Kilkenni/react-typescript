@@ -3,6 +3,9 @@ import { FormEvent, ChangeEvent } from "react";
 import { postBlogger } from "../../js/API";
 import styles from "./AddBloggerForm.module.css";
 
+import type { BloggerInfo } from "../BloggerEntry/BloggerEntry";
+import useMountAnimation from "../../hooks/useMountAnimation";
+
 const INIT_STATE = {
   name: "",
   URL: "",
@@ -14,6 +17,7 @@ const INIT_STATE = {
 function AddBloggerForm({onSubmitted}: AddBloggerFormProps) {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [blogger, setBlogger] = useState<{ name: string, URL: string, categories: string, subscribers: string, rating: string }>({ ...INIT_STATE });
+  const hasTransitionedIn = useMountAnimation(isExpanded, 300);
 
   function toggleExpand() {
     setIsExpanded(!isExpanded);
@@ -30,20 +34,23 @@ function AddBloggerForm({onSubmitted}: AddBloggerFormProps) {
 
     const { name, URL, categories, subscribers, rating } = blogger;
 
-    //todo: POST here
     const response = await postBlogger({name, URL, categories:categories.split(","), subscribers: parseInt(subscribers), rating: parseFloat(rating)});
     
     if (response.status === 201) { //successful!
       setIsExpanded(false);
       setBlogger({ ...INIT_STATE });
-      onSubmitted();
+      onSubmitted(response.data);
+      alert(`Success!`)
+    }
+    else {
+      alert(`Error adding form, response status: ${response.status}`); //Negative responses from the backend can be processed here
     }
     
   }
 
   return (<>
     <button type="button" onClick={toggleExpand} className={styles.btnExpand}>{isExpanded? "Collapse" : "Expand"}</button>
-    {isExpanded && <form action="sumbit" onSubmit={onAddBlogger} className={styles.form}>
+    {(hasTransitionedIn || isExpanded) && <form action="sumbit" onSubmit={onAddBlogger} className={`${styles.form} ${hasTransitionedIn && styles.transitioned} ${isExpanded && styles.expanded}`}>
       <label className={styles.formLabel}>
         Name
         <input
@@ -111,8 +118,7 @@ function AddBloggerForm({onSubmitted}: AddBloggerFormProps) {
 }
 
 export type AddBloggerFormProps = {
-  onSubmitted: ()=> void,
+  onSubmitted: (newBlogger: {id: number } & BloggerInfo)=> void,
 }
-
 
 export default AddBloggerForm;

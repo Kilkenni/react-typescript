@@ -47,11 +47,11 @@ function useLoadItems() {
     }
   }
 
-  return { loading, items, currentPage, totalItems, setTotalItems, error, loadMore };
+  return { loading, items, setItems, currentPage, totalItems, setTotalItems, error, loadMore };
 }
 
 function BloggersTable() {
-  const { loading, items: bloggers, currentPage, totalItems, setTotalItems, error, loadMore } = useLoadItems();
+  const { loading, items: bloggers, setItems: setBloggers, currentPage, totalItems, setTotalItems, error, loadMore } = useLoadItems();
 
   function hasNextPage() {
     if (currentPage === undefined || totalItems === undefined) {
@@ -74,11 +74,18 @@ function BloggersTable() {
     rootMargin: '0px 0px 0px 0px',
   });
 
-  function onBloggerInserted() {
+  function onBloggerInserted(newBlogger : {id: number } & BloggerInfo) {
     if (!totalItems) {
       setTotalItems(1);
+      setBloggers([newBlogger]);
     }
     else {
+      //if last page has space, add to it
+      if (currentPage !== undefined) {
+        if (bloggers.length < currentPage * 5) {
+          setBloggers([...bloggers, newBlogger])
+        }
+      }
       setTotalItems(totalItems + 1);
     }
   }
