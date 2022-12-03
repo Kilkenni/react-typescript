@@ -1,7 +1,8 @@
 {
-  "name": "darly",
+  "name": "react-typescript",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://kilkenni.github.io/react-typescript/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
